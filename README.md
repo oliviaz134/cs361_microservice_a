@@ -1,1 +1,4 @@
-# cs361_microservice_a
+# CS 361 Microservice A: Random Songs Generator
+
+
+
