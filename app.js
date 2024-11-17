@@ -8,17 +8,6 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Get all songs
-app.get('/songs', async (req, res, next) => {
-  try {
-    const songs = await knex('songs').select('*');
-    res.json(songs);
-  } catch (err) {
-    console.error('Error fetching songs:', err);
-    res.status(500).json({error: 'Error fetching songs.'});
-  }
-});
-
 // Get a random song
 app.get('/song', async (req, res, next) => {
   try {
@@ -31,18 +20,28 @@ app.get('/song', async (req, res, next) => {
   }
 });
 
+// Get all songs
+app.get('/songs', async (req, res, next) => {
+  try {
+    const songs = await knex('songs').select('*');
+    res.json(songs);
+  } catch (err) {
+    console.error('Error fetching songs:', err);
+    res.status(500).json({error: 'Error fetching songs.'});
+  }
+});
+
 // Add a song
 app.post('/songs', async (req, res, next) => {
   try {
     if (req.body.title && req.body.artist) {
-      await knex('songs').insert({
+      const result = await knex('songs').insert({
         title: req.body.title,
         artist: req.body.artist
-      });
-      const songs = await knex('songs').select('*');
-      res.json(songs);
+      }).returning('*');
+      res.json(result[0]);
     } else {
-      res.status(400).send('Error with request body. Please ensure there is a title and artist.')
+      res.status(400).json({error: 'Error with request body. Please ensure there is a title and artist.'})
     }
   } catch (err) {
     console.error('Error adding a song:', err);
