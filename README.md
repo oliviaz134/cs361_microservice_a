@@ -72,4 +72,4 @@ This data can then be passed as JSON data using the Python `requests` library: `
 }`.
 
 ## UML Diagram
-
+![UML Diagram](uml.png)
