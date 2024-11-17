@@ -9,7 +9,7 @@
 6. Run `npx knex migrate:latest` and then `npx knex seed:run` to create and seed the `songs` table.
 7. Run `npm run start` to start the microservice.
 
-## Requesting and Receiving Data
+## Routes
 | Route | Description | Example Call | Example Return Response |
 | ----- | ----------- | ------------ | ----------------------- |
 | GET `/song` | Return a song | GET `/song` | `{"id": 1, "title": "Viva La Vida", "artist": "Coldplay"}` |
